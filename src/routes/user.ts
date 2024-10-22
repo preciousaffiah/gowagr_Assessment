@@ -6,6 +6,6 @@ const userRoutes = Router();
 const path = '/user';
 
 userRoutes.get(`${path}/:id`, authMiddleware, UserController.getUserById);
-userRoutes.get(`${path}/:username`, authMiddleware, UserController.getUserByUsername);
+userRoutes.get(`${path}/username/:username`, authMiddleware, UserController.getUserByUsername);
 
 export default userRoutes;

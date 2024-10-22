@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { UserService } from "./user";
+import { UserService } from "@services";
 import { HttpException, capitalizeFletter, generateJWTToken } from "@utils";
 import { UserRepository, WalletRepository } from "@repositories";
 
@@ -22,7 +22,7 @@ export class AuthService {
       if (existingEmail)
         throw new HttpException(409, "This user already exists");
 
-      const existingUsername = await UserService.getUserByUsername(
+      const existingUsername = await UserService.getUserByUsernameAuth(
         userData.username
       );
       if (existingUsername)
@@ -36,7 +36,7 @@ export class AuthService {
       }
 
       // Generate JWT token
-      const token = generateJWTToken(newUser);
+      const token = generateJWTToken(newUser.userId);
 
       const wallet = await WalletRepository.createWallet(newUser.userId);
       if (!wallet) {
@@ -79,7 +79,7 @@ export class AuthService {
         throw new HttpException(401, `Invalid email or password`);
 
       // Generate JWT token
-      const token = generateJWTToken(user);
+      const token = generateJWTToken(user.userId);
 
       return { token: token, userData: loggedUser };
     } catch (error: any) {

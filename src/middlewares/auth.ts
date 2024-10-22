@@ -20,8 +20,9 @@ export async function authMiddleware(
 
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET || "") as any;
+console.log(decodedToken.user);
 
-    const user = await UserService.getUserById(decodedToken.user.user_id);
+    const user = await UserService.getUserById(decodedToken.user.userId);
 
     if (!user) {
       return APIResponse.error(
@@ -36,7 +37,9 @@ export async function authMiddleware(
 
     next();
   } catch (error) {
-    return APIResponse.error(
+    console.log(error);
+    
+    APIResponse.error(
       res,
       { message: "Invalid authentication token" },
       401

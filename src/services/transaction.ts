@@ -1,4 +1,4 @@
-import { UserService } from "./user";
+import { UserService } from "@services";
 import {
   TransactionStatusEnum,
   TransactionTypeEnum,

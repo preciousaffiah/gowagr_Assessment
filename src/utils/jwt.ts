@@ -1,8 +1,7 @@
 import jwt from "jsonwebtoken";
 
-export function generateJWTToken(user: any) {
+export function generateJWTToken(userId: string) {
   // Generate JWT token
-  const { userId } = user;
   const userData = {
     userId,
   };
