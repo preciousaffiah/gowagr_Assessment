@@ -1,0 +1,1134 @@
+{
+	"info": {
+		"_postman_id": "6d3d50f1-505b-4ebd-a6f9-a0b47901aeb9",
+		"name": "GoWagr",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "18567529",
+		"_collection_link": "https://lively-meadow-916190.postman.co/workspace/58e27f91-6339-4540-98cb-8be506085174/collection/18567529-6d3d50f1-505b-4ebd-a6f9-a0b47901aeb9?action=share&source=collection_link&creator=18567529"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response",
+									"var jsonData = pm.response.json();",
+									"",
+									"// Extract the token",
+									"var token = jsonData.data.data.token;",
+									"",
+									"// Set the environment variable",
+									"pm.environment.set(\"auth_token\", token);",
+									"",
+									"// Optionally, log the token to verify",
+									"console.log(\"Token saved to environment variable 'auth_token': \" + token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fname\": \"{{$randomFirstName}}\",\n  \"lname\": \"{{$randomLastName}}\",\n  \"username\": \"{{$randomUserName}}\",\n  \"email\": \"{{$randomEmail}}\",\n  \"mobile\": \"{{$randomPhoneNumber}}\",\n  \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/auth/register"
+					},
+					"response": [
+						{
+							"name": "409",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fname\": \"{{$randomFirstName}}\",\n  \"lname\": \"{{$randomLastName}}\",\n  \"username\": \"{{$randomUserName}}\",\n  \"email\": \"fleta62@hotmail.com\",\n  \"mobile\": \"{{$randomPhoneNumber}}\",\n  \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/auth/register"
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "38"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"26-3CS6HeWeKzNxaM4RhTlyzZ5rgXU\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Oct 2024 18:18:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"This user already exists\"\n}"
+						},
+						{
+							"name": "201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"fname\": \"{{$randomFirstName}}\",\n  \"lname\": \"{{$randomLastName}}\",\n  \"username\": \"{{$randomUserName}}\",\n  \"email\": \"{{$randomEmail}}\",\n  \"mobile\": \"{{$randomPhoneNumber}}\",\n  \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/auth/register"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "517"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"205-2IOr3EA77MKJNMUQbvQsa6MeOF4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Oct 2024 18:20:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"status\": \"success\",\n        \"data\": {\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJJZCI6IjI5ZWM4YWNhLWZhMzUtNDhmMy05ZmE0LWRmYjVkOGUyYjAxNyJ9LCJpYXQiOjE3MjkzNjIwMTgsImV4cCI6MTcyOTUzNDgxOH0.TZ94K4fIIEMAafIQgqCkBx-FJdVOl0Lic6nvCUaW0oE\",\n            \"userData\": {\n                \"userId\": \"29ec8aca-fa35-48f3-9fa4-dfb5d8e2b017\",\n                \"fname\": \"Keanu\",\n                \"lname\": \"Huel\",\n                \"mobile\": \"828-280-6729\",\n                \"username\": \"arvel51\",\n                \"email\": \"jett55@yahoo.com\",\n                \"password\": \"$2b$10$EcqtL9qV/TlJWyzldNUSg.ajBXFrIzcEARAEgknClCcKTmS1HxCOK\"\n            }\n        },\n        \"message\": \"User created.\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Parse the JSON response",
+									"var jsonData = pm.response.json();",
+									"",
+									"// Extract the token",
+									"var token = jsonData.data.data.token;",
+									"",
+									"// Set the environment variable",
+									"pm.environment.set(\"auth_token\", token);",
+									"",
+									"// Optionally, log the token to verify",
+									"console.log(\"Token saved to environment variable 'auth_token': \" + token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"reid.jacobson28@yahoo.com\",\n  \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/auth/login"
+					},
+					"response": [
+						{
+							"name": "401",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"fleta62@hotmail.com\",\n  \"password\": \"22345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/auth/login"
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "39"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"27-Mm37A2ls1bgL0/D8e3MSpDLbow8\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Oct 2024 18:23:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Invalid email or password\"\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"roy_ritchie@yahoo.com\",\n  \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/auth/login"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "365"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16d-SEJf5QPV3NESsKwOkCYI5ibzDlU\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Oct 2024 19:38:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"status\": \"success\",\n        \"data\": {\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJJZCI6IjUxODQ2NWE2LTNiYjktNGFlMC1hOTM5LTZlZjJmNTkwZmZiYyJ9LCJpYXQiOjE3MjkzNjY2ODcsImV4cCI6MTcyOTUzOTQ4N30.yQ7uwxTyk7NFCgBODm0iq-fKtWMlBXwawxQDhbEQ5ic\",\n            \"userData\": {\n                \"userId\": \"518465a6-3bb9-4ae0-a939-6ef2f590ffbc\",\n                \"username\": \"wilfred99\"\n            }\n        },\n        \"message\": \"User logged in.\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get user by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "ec4b2249-90ed-4c44-a4d0-6c7a8f7fe35d"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "401",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/user/:id",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "ec4b2249-90ed-4c44-a4d0-6c7a8f7fe35d"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "68"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"44-EmmQcvJ6CtaVHmv9ZeYQCrMqheg\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 05:14:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"status\": \"error\",\n        \"message\": \"Invalid authentication token\"\n    }\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/user/:id",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "ec4b2249-90ed-4c44-a4d0-6c7a8f7fe35d"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "272"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"110-QCOGuy5EoRUxDpdRxH2TdRAwzOY\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 05:28:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"status\": \"success\",\n        \"data\": {\n            \"userId\": \"ec4b2249-90ed-4c44-a4d0-6c7a8f7fe35d\",\n            \"email\": \"testuser2@example.com\",\n            \"username\": \"testuser2\",\n            \"fname\": \"Test2\",\n            \"lname\": \"User2\",\n            \"wallet\": {\n                \"walletId\": \"c87045de-cba7-4d16-a419-c179339461ea\",\n                \"balance\": 0\n            }\n        },\n        \"message\": \"User profile.\"\n    }\n}"
+						},
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/user/:id",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "invalidUser"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21-Np2jUya9p3j0Sf6GzW9K1FMhcTQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 05:42:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User does not exist\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get user by username",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": ""
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/username/:username",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"username",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "jacquelynrandom"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/user/username/:username",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"username",
+										":username"
+									],
+									"variable": [
+										{
+											"key": "username",
+											"value": "jacquelyn"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "196"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c4-ahBT/oAnkEH+JfFnK2c3N0KlBzU\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 06:53:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"status\": \"success\",\n        \"data\": {\n            \"userId\": \"13a52996-bf19-4812-b1e8-2e23da6e7cb6\",\n            \"email\": \"thalia75@yahoo.com\",\n            \"username\": \"jacquelyn\",\n            \"fname\": \"Toby\",\n            \"lname\": \"Walter\"\n        },\n        \"message\": \"User profile.\"\n    }\n}"
+						},
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/user/username/:username",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"username",
+										":username"
+									],
+									"variable": [
+										{
+											"key": "username",
+											"value": "jacquelynrandom"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21-Np2jUya9p3j0Sf6GzW9K1FMhcTQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 06:55:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User does not exist\"\n}"
+						},
+						{
+							"name": "401",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/user/username/:username",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"username",
+										":username"
+									],
+									"variable": [
+										{
+											"key": "username",
+											"value": "jacquelynrandom"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "68"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"44-rR07Mt31stEKK24v0YA2txdtB/Y\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 06:55:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"status\": \"error\",\n        \"message\": \"Missing authentication token\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Transactions",
+			"item": [
+				{
+					"name": "transfer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"recipientId\": \"70c00927-12f2-4259-8e20-7c49eae6f3a6\",\n    \"amount\": 400,\n    \"description\": \"random description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/transaction"
+					},
+					"response": [
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"recipientId\": \"string\",\n    \"amount\": 400,\n    \"description\": \"random description\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/transaction"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "33"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21-Np2jUya9p3j0Sf6GzW9K1FMhcTQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 09:31:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User does not exist\"\n}"
+						},
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"recipientId\": \"360a799c-e1f6-49b9-a1cd-aaf0cf1862ce\",\n    \"amount\": 400,\n    \"description\": \"random description\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/transaction"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "32"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"20-gszukOUwM7qBWVjvz4Jk+Na2P+c\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 09:33:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Insufficient funds\"\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"recipientId\": \"70c00927-12f2-4259-8e20-7c49eae6f3a6\",\n    \"amount\": 400,\n    \"description\": \"random description\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/transaction"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "388"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"184-x45Q/34Se9bWsx4jUmerVFqPeQE\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 10:12:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"status\": \"success\",\n        \"data\": {\n            \"transactionId\": \"372a0f4a-1714-4659-aa95-3eb0e42007a6\",\n            \"amount\": 400,\n            \"type\": \"DEBIT\",\n            \"description\": \"random description\",\n            \"status\": \"SUCCESSFULL\",\n            \"recipientWalletId\": \"edb725d8-dd13-4225-a072-d6ff63e0b3fd\",\n            \"senderWalletId\": \"df350fd1-4775-4ef3-86bd-a863d83ad1db\",\n            \"refrence\": \"TRF857140986\",\n            \"createdAt\": \"2024-10-22T10:12:44.045Z\"\n        },\n        \"message\": \"New transaction.\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "transactions history",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/transaction/history",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"transaction",
+								"history"
+							],
+							"query": [
+								{
+									"key": "pageSize",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"date\": \"ajjjs\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/transaction/history"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "81"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"51-mq3A2BTiqw7LXr/+z4FOlUnEKxg\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 10:22:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"status\": \"error\",\n        \"message\": \"date must be a valid ISO 8601 date string\"\n    }\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/transaction/history",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"transaction",
+										"history"
+									],
+									"query": [
+										{
+											"key": "pageSize",
+											"value": "10",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "754"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2f2-FfWfsKuXmDi+x8PWqoCMKpKb02Q\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 10:31:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"status\": \"success\",\n        \"data\": {\n            \"transactions\": [\n                {\n                    \"transactionId\": \"fb22961b-4e66-43df-9e30-809ee5b70cac\",\n                    \"amount\": 400,\n                    \"type\": \"CREDIT\",\n                    \"description\": \"random description\",\n                    \"status\": \"SUCCESSFULL\",\n                    \"recipientWalletId\": \"edb725d8-dd13-4225-a072-d6ff63e0b3fd\",\n                    \"senderWalletId\": \"df350fd1-4775-4ef3-86bd-a863d83ad1db\",\n                    \"refrence\": \"TRF306043283\",\n                    \"createdAt\": \"2024-10-22T10:12:44.135Z\"\n                },\n                {\n                    \"transactionId\": \"372a0f4a-1714-4659-aa95-3eb0e42007a6\",\n                    \"amount\": 400,\n                    \"type\": \"DEBIT\",\n                    \"description\": \"random description\",\n                    \"status\": \"SUCCESSFULL\",\n                    \"recipientWalletId\": \"edb725d8-dd13-4225-a072-d6ff63e0b3fd\",\n                    \"senderWalletId\": \"df350fd1-4775-4ef3-86bd-a863d83ad1db\",\n                    \"refrence\": \"TRF857140986\",\n                    \"createdAt\": \"2024-10-22T10:12:44.045Z\"\n                }\n            ],\n            \"page\": 1,\n            \"pageSize\": 10\n        },\n        \"message\": \"New transaction.\"\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{auth_token}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
