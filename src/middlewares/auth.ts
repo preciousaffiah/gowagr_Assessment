@@ -20,7 +20,6 @@ export async function authMiddleware(
 
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET || "") as any;
-console.log(decodedToken.user);
 
     const user = await UserService.getUserById(decodedToken.user.userId);
 

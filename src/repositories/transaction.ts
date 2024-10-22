@@ -42,7 +42,7 @@ export class TransactionRepository {
     walletId: string,
     page: number,
     pageSize: number,
-    date?: Date
+    date: Date
   ): Promise<Transaction[] | null> {
     const filterDate = date || new Date(); // Default to the current month if no date is provided
 
@@ -57,7 +57,7 @@ export class TransactionRepository {
     // Fetch the paginated transactions
     const transactions = await prisma.transaction.findMany({
       where: {
-        AND: [{ senderWalletId: walletId }, { recipientWalletId: walletId }],
+        OR: [{ senderWalletId: walletId }, { recipientWalletId: walletId }],
         createdAt: {
           gte: startDate,
           lte: endDate,

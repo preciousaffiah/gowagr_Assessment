@@ -20,9 +20,6 @@ export class TransactionService {
       if (transactionData.recipientId === transactionData.senderId) {
         throw new HttpException(400, "You cannot send money to youself");
       }
-      
-      if (!receiver || !sender)
-        throw new HttpException(404, "Sender or receiver not found");
 
       if (!sender.wallet || !receiver.wallet) {
         throw new HttpException(400, "User does not have a wallet");
@@ -32,7 +29,19 @@ export class TransactionService {
         throw new HttpException(400, "Insufficient funds");
       }
 
-      const initiatedTransactionRef = `REF${generateREF()}`;
+      const initiatedTransactionRef = `TRF${generateREF()}`;
+
+      const senderTransactionData = {
+        amount: transactionData.amount,
+        type: TransactionTypeEnum.DEBIT,
+        description: transactionData.description,
+        recipientWalletId: receiver.wallet.walletId,
+        senderWalletId: sender.wallet.walletId,
+        refrence: initiatedTransactionRef,
+      };
+      const senderTransaction = await TransactionRepository.createTransaction(
+        senderTransactionData
+      );
 
       const decrementSender = await WalletService.updateWalletBalance(
         sender.wallet.walletId,
@@ -45,9 +54,9 @@ export class TransactionService {
         WalletOperationEnum.INCREMENT
       );
 
-      const senderTransaction =
-        await TransactionRepository.updateTransactionStatus(
-          initiatedTransactionRef,
+      const updateSenderTransaction =
+        await TransactionService.updateTransactionStatus(
+          senderTransaction?.transactionId as string,
           TransactionStatusEnum.SUCCESSFULL
         );
 
@@ -56,15 +65,15 @@ export class TransactionService {
         type: TransactionTypeEnum.CREDIT,
         description: transactionData.description,
         status: TransactionStatusEnum.SUCCESSFULL,
-        recipientWalletId: transactionData.recipientWalletId,
-        senderWalletId: transactionData.senderWalletId,
-        refrence: `REF${generateREF()}`,
+        recipientWalletId: receiver.wallet.walletId,
+        senderWalletId: sender.wallet.walletId,
+        refrence: `TRF${generateREF()}`,
       };
 
       const recipientTransaction =
         await TransactionRepository.createTransaction(recipientTransactionData);
 
-      return senderTransaction;
+      return updateSenderTransaction;
     } catch (error: any) {
       throw new HttpException(error.status, error.message);
     }
@@ -101,8 +110,6 @@ export class TransactionService {
     date: Date
   ) {
     try {
-      const user = await UserService.getUserById(userId);
-
       const wallet = await WalletService.getWalletbyUserId(userId);
 
       if (!wallet) {
@@ -117,7 +124,7 @@ export class TransactionService {
           date
         );
 
-      return transactions;
+      return { transactions, page: page, pageSize: pageSize };
     } catch (error: any) {
       throw new HttpException(error.status, error.message);
     }

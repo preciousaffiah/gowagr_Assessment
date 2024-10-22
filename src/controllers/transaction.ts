@@ -25,7 +25,7 @@ export class TransactionController {
 
       const page = Number(req.query.page) || 1;
       const pageSize = Number(req.query.pageSize) || 10;
-      const date = new Date(req.body.date) || new Date();
+      const date = req.body.date || new Date();
 
       const newTransaction = await TransactionService.getUserTransactionHistory(
         userId,
