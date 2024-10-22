@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { APIResponse } from "@utils";
-import { UserService } from "services";
+import { UserService } from "@services";
 
 export class UserController {
   static async getUserById(req: Request, res: Response) {

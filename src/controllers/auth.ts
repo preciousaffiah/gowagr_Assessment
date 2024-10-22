@@ -1,6 +1,6 @@
+import { AuthService } from "@services";
 import { APIResponse } from "@utils";
 import { Request, Response } from "express";
-import { AuthService } from "services/auth";
 
 export class AuthController {  
     static async Register(req: Request, res: Response) {

@@ -1,5 +1,5 @@
-import HttpException from "utils/exceptions";
-import { UserRepository } from "repositories";
+import { UserRepository } from "@repositories";
+import { HttpException } from "@utils";
 
 export class UserService {
   static async getUserById(userId: string) {

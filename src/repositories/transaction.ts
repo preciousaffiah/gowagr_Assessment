@@ -1,7 +1,7 @@
 import { Transaction } from "@prisma/client";
 import { TransactionStatusEnum } from "types/enum";
 import { startOfMonth, endOfMonth } from 'date-fns';
-import prisma from "utils/database";
+import { prisma } from "@utils";
 
 export class TransactionRepository {
   static async createTransaction(
@@ -41,7 +41,7 @@ export class TransactionRepository {
   static async getUserTransactionHistory(
     walletId: string,
     page: number,
-    pageSize: number, // Default items per page
+    pageSize: number,
     date?: Date
   ): Promise<Transaction[] | null> {
     const filterDate = date || new Date(); // Default to the current month if no date is provided

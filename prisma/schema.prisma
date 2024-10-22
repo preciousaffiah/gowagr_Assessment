@@ -32,9 +32,8 @@ model User {
   username String  @unique
   email    String  @unique
   password String
-  walletId String  @unique
+  walletId String?  @unique
   wallet   Wallet? @relation(fields: [walletId], references: [walletId])
-  // one to many {transactions, wallet}
 }
 
 model Wallet {

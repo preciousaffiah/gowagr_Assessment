@@ -1,6 +1,6 @@
 import { AuthController } from "@controllers";
 import { validationMiddleware } from "@middlewares";
-import { LoginDto,SignUpDto } from "dtos/auth";
+import { LoginDto,SignUpDto } from "@dtos";
 import { Router } from "express";
 
 const authRoutes = Router();

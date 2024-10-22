@@ -1,6 +1,6 @@
 import { TransactionController } from "@controllers";
 import { authMiddleware, validationMiddleware } from "@middlewares";
-import { TransferDto, TransferHistoryDto } from "dtos/transaction";
+import { TransferDto, TransferHistoryDto } from "@dtos";
 import { Router } from "express";
 
 const transactionRoutes = Router();

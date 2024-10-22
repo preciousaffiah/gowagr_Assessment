@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { UserService } from "./user";
 import { HttpException, capitalizeFletter, generateJWTToken } from "@utils";
-import { UserRepository, WalletRepository } from "repositories";
+import { UserRepository, WalletRepository } from "@repositories";
 
 export class AuthService {
   static async Register(userData: {
@@ -38,7 +38,7 @@ export class AuthService {
       // Generate JWT token
       const token = generateJWTToken(newUser);
 
-      const wallet = await WalletRepository.createWallet(newUser.userId); //TODO: server event
+      const wallet = await WalletRepository.createWallet(newUser.userId);
       if (!wallet) {
         throw new HttpException(500, "could not complete wallet creation");
       }

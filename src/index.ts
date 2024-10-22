@@ -2,18 +2,19 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import { authRoutes, userRoutes } from "@routes";
+import { authRoutes, transactionRoutes, userRoutes } from "@routes";
 import { HttpException } from "@utils";
 
 dotenv.config();
 
-const app = express();
+export const app = express();
 
 app.use(cors());
 app.use(bodyParser.json({ limit: "20mb" }));
 app.use(bodyParser.urlencoded({ limit: "20mb", extended: true }));
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
+app.use("/api", transactionRoutes);
 
 // Error handling
 app.use((err: any, req: any, res: any, next: any) => {

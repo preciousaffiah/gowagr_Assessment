@@ -1,6 +1,6 @@
-import HttpException from "utils/exceptions";
-import { UserRepository, WalletRepository } from "repositories";
+import {HttpException} from "@utils";
 import { WalletOperationEnum } from "types/enum";
+import { UserRepository, WalletRepository } from "@repositories";
 
 export class WalletService {
   static async getWalletbyId(walletId: string) {
@@ -41,7 +41,6 @@ export class WalletService {
   }
 
   static async updateWalletBalance(
-    userId: string,
     walletId: string,
     amount: number,
     operation: WalletOperationEnum
@@ -50,7 +49,7 @@ export class WalletService {
       const wallet = await WalletRepository.getWalletbyId(walletId);
 
       const updatedWallet = await WalletRepository.updateWalletBalance(
-        userId,
+        walletId,
         amount,
         operation
       );

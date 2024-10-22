@@ -1,7 +1,6 @@
-import bcrypt from "bcrypt";
 import { User, Wallet } from "@prisma/client";
-import prisma from "utils/database";
 import { UserDetails } from "@types*";
+import { prisma } from "@utils";
 
 export class UserRepository {
   static async createUser(userData: any): Promise<User | null> {

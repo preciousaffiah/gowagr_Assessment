@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { APIResponse } from "@utils";
-import { TransactionService } from "services";
+import { TransactionService } from "@services";
 
 export class TransactionController {
   static async transfer(req: Request, res: Response) {
@@ -20,8 +20,6 @@ export class TransactionController {
 
   static async getUserTransactionHistory(req: Request, res: Response) {
     try {
-      // new Date('2024-05-01'));
-
       //@ts-ignore
       const userId = req.user.userId;
 

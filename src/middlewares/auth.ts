@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { APIResponse } from "@utils";
-import { UserService } from "services";
+import { UserService } from "@services";
 
 export async function authMiddleware(
   req: Request,

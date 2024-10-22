@@ -1,7 +1,7 @@
 import { plainToInstance } from "class-transformer";
 import { ValidationError, validateOrReject } from "class-validator";
 import { NextFunction, Request, Response } from "express";
-import { APIResponse } from "utils/response";
+import { APIResponse } from "@utils";
 
 /**
  * @name ValidationMiddleware

@@ -1,18 +1,13 @@
-import HttpException from "utils/exceptions";
-import {
-  TransactionRepository,
-  UserRepository,
-  WalletRepository,
-} from "repositories";
 import { UserService } from "./user";
 import {
   TransactionStatusEnum,
   TransactionTypeEnum,
   WalletOperationEnum,
 } from "../types/enum";
-import { generateREF } from "utils/generator";
 import { WalletService } from "./wallet";
 import { transactionData } from "@types*";
+import { TransactionRepository } from "@repositories";
+import { HttpException, generateREF } from "@utils";
 
 export class TransactionService {
   static async transfer(transactionData: transactionData) {
@@ -35,19 +30,12 @@ export class TransactionService {
 
       const initiatedTransactionRef = `REF${generateREF()}`;
 
-      // Initiate transaction
-      // minus and add to wallet
-      // update transaction
-      // create recipient transaction
-
       const decrementSender = await WalletService.updateWalletBalance(
-        sender.userId,
         sender.wallet.walletId,
         transactionData.amount,
         WalletOperationEnum.DECREMENT
       );
       const incrementRecipient = await WalletService.updateWalletBalance(
-        receiver.userId,
         receiver.wallet?.walletId,
         transactionData.amount,
         WalletOperationEnum.INCREMENT

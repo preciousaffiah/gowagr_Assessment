@@ -1,12 +1,19 @@
 import { Wallet } from "@prisma/client";
+import { prisma } from "@utils";
 import { WalletOperationEnum } from "types/enum";
-import prisma from "utils/database";
 
 export class WalletRepository {
   static async createWallet(userId: string): Promise<Wallet | null> {
     const newWallet = await prisma.wallet.create({
-      data: {
+      data: {},
+    });
+
+    const linkUser = await prisma.user.update({
+      where: {
         userId,
+      },
+      data: {
+        walletId: newWallet.walletId,
       },
     });
 
@@ -23,12 +30,16 @@ export class WalletRepository {
     return newWallet;
   }
 
-  static async updateWalletBalance(userId: string, amount: number, operation: WalletOperationEnum): Promise<Wallet | null> {
+  static async updateWalletBalance(
+    walletId: string,
+    amount: number,
+    operation: WalletOperationEnum
+  ): Promise<Wallet | null> {
     const updatedBalance = await prisma.wallet.update({
       where: {
-        userId
+        walletId,
       },
-      data: { balance: { [operation]: amount} },
+      data: { balance: { [operation]: amount } },
     });
 
     return updatedBalance;

@@ -1,6 +1,5 @@
 {
   "ts-node": {
-    // Do not forget to `npm i -D tsconfig-paths`
     "require": ["tsconfig-paths/register"]
   },
   
@@ -15,20 +14,22 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "baseUrl": "./src",
     "paths": {
       "@config": ["config"],
       "@routes": ["routes/index"],
-      "@models": ["models/index"],
       "@dtos": ["dtos"],
       "@utils": ["utils"],
-      "@socket": ["socket/index"],
+      "@services": ["services/index"],
+      "@repositories": ["repositories/index"],
       "@controllers": ["controllers/index"],
       "@middlewares": ["middlewares/index"],
       "@types*": ["types/index"]
     },
     "typeRoots": ["node_modules/@types"],
-    "types": ["node", "express"],
+    "types": ["node", "express", "jest"],
     "lib": ["es6", "dom"],
     "resolveJsonModule": true
   },
