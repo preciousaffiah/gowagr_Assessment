@@ -112,3 +112,55 @@ describe("GET /user/username/:username", () => {
     expect(response.body.data).toHaveProperty("message");
   });
 });
+
+describe("GET /transaction", () => {
+  it("should create a transaction", async () => {
+    const response = await request(app)
+      .post("/transaction")
+      .send({
+        fname: "test",
+        lname: "user",
+        mobile: "34567789",
+        email: "testuser@example.com",
+        username: "testuser",
+        password: "password123",
+      })
+      .set("Authorization", `Bearer ${token}`); // Set the auth header;
+
+    expect(response.status).toBe(200);
+    expect(response.body.data.data).toHaveProperty("userId");
+  });
+
+  it("should return a 404 error if user does not exist", async () => {
+    const response = await request(app)
+      .post("/transaction")
+      .send({
+        fname: "test",
+        lname: "user",
+        mobile: "34567789",
+        email: "testuser@example.com",
+        username: "testuser",
+        password: "password123",
+      })
+      .set("Authorization", `Bearer ${token}`); // Set the auth header;
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty("message");
+  });
+
+  it("should return a 401 error if input validation fails", async () => {
+    const response = await request(app)
+      .post("/transaction")
+      .send({
+        fname: "test",
+        lname: "user",
+        mobile: "34567789",
+        email: "testuser@example.com",
+        username: "testuser",
+        password: "password123",
+      })
+      .set("Authorization", `Bearer ${token}`); // Set the auth header;
+
+    expect(response.status).toBe(401);
+    expect(response.body.data).toHaveProperty("message");
+  });
+});

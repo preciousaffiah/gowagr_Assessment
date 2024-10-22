@@ -17,6 +17,10 @@ export class TransactionService {
         transactionData.recipientId
       );
 
+      if (transactionData.recipientId === transactionData.senderId) {
+        throw new HttpException(400, "You cannot send money to youself");
+      }
+      
       if (!receiver || !sender)
         throw new HttpException(404, "Sender or receiver not found");
 
